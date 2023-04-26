@@ -1,0 +1,110 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Worrcc's hub", HidePremium = false, IntroText = "Worrcc's Hub", SaveConfig = true, ConfigFolder = "OrionTest"})
+
+-- This where the tabs are going to be 
+
+local AutoFarm = Window:MakeTab({
+	Name = "AutoFarm",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+--Bandit Farm
+
+AutoFarm:AddButton({
+	Name = "AutoFarm Bandit! (Will Stop Once You Press G)",
+	Callback = function()
+      		-- Get the player who executed the script
+local player = game:GetService("Players").LocalPlayer
+
+-- Define the function to teleport parts
+local function teleportParts()
+    -- Get all parts in the game
+    local parts = game.Workspace:GetDescendants()
+    for _, part in ipairs(parts) do
+        if part.Name:match("^Bandit:%d+$") then -- Check if part name matches the pattern Bandit:X where X is a number between 1 and 100
+            local banditNumber = tonumber(part.Name:sub(8)) -- Extract the number from the part name
+            if banditNumber and banditNumber >= 1 and banditNumber <= 100 then -- Check if the number is between 1 and 100
+                local humanoidRootPart = part:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then -- Check if the part has a HumanoidRootPart
+                    -- Teleport the HumanoidRootPart to the player's character
+                    humanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+                end
+            end
+        end
+    end
+end
+
+-- Define a variable to keep track of whether the script is running
+local isRunning = true
+
+-- Define a function to turn off the script when the G key is pressed
+local function onKeyPress(inputObject, gameProcessedEvent)
+    if gameProcessedEvent then return end -- Ignore if another script has already processed this input event
+    if inputObject.KeyCode == Enum.KeyCode.G then
+        isRunning = false -- Set isRunning to false to stop the teleportation
+    end
+end
+
+-- Connect the onKeyPress function to the UserInputService's InputBegan event
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
+
+-- Call the function to teleport parts every second while isRunning is true
+while isRunning do
+    teleportParts()
+    wait(0.1)
+end
+
+  	end    
+})
+
+--Poacher Farm
+
+AutoFarm:AddButton({
+	Name = "AutoFarm Poacher! (Will Stop Once You Press G)",
+	Callback = function()
+      		-- Get the player who executed the script
+local player = game:GetService("Players").LocalPlayer
+
+-- Define the function to teleport parts
+local function teleportParts()
+    -- Get all parts in the game
+    local parts = game.Workspace:GetDescendants()
+    for _, part in ipairs(parts) do
+        if part.Name:match("^Poacher:%d+$") then -- Check if part name matches the pattern Poacher:X where X is a number between 1 and 100
+            local poacherNumber = tonumber(part.Name:sub(9)) -- Extract the number from the part name
+            if poacherNumber and poacherNumber >= 1 and poacherNumber <= 100 then -- Check if the number is between 1 and 100
+                local humanoidRootPart = part:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then -- Check if the part has a HumanoidRootPart
+                    -- Teleport the HumanoidRootPart to the player's character
+                    humanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+                end
+            end
+        end
+    end
+end
+
+-- Define a variable to keep track of whether the script is running
+local isRunning = true
+
+-- Define a function to turn off the script when the G key is pressed
+local function onKeyPress(inputObject, gameProcessedEvent)
+    if gameProcessedEvent then return end -- Ignore if another script has already processed this input event
+    if inputObject.KeyCode == Enum.KeyCode.G then
+        isRunning = false -- Set isRunning to false to stop the teleportation
+    end
+end
+
+-- Connect the onKeyPress function to the UserInputService's InputBegan event
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
+
+-- Call the function to teleport parts every second while isRunning is true
+while isRunning do
+    teleportParts()
+    wait(0.1)
+end
+
+  	end    
+})
+
+OrionLib:Init()
